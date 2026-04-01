@@ -8,7 +8,7 @@ fi
 
 cd devops-django-cicd-project
 
-git pull origin main
+git pull origin main --rebase
 
 cd django-app/django-locallibrary-tutorial
 
