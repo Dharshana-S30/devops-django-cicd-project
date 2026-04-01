@@ -1,0 +1,22 @@
+pipeline {
+    agent any
+
+    stages {
+
+        stage('Clone Code') {
+            steps {
+                git 'https://github.com/YOUR-USERNAME/devops-django-cicd-project.git'
+            }
+        }
+
+        stage('Run Deployment Script') {
+            steps {
+                sh '''
+                chmod +x scripts/deploy.sh
+                ./scripts/deploy.sh
+                '''
+            }
+        }
+
+    }
+}

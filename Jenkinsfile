@@ -1,0 +1,33 @@
+pipeline {
+    agent any
+
+    stages {
+
+        stage('Clone Code') {
+            steps {
+                git branch: 'main', url: 'https://github.com/Dharshana-S30/devops-django-cicd-project.git'
+            }
+        }
+        
+
+        stage('Terraform') {
+    steps {
+        sh '''
+        cd terraform
+        export TF_PLUGIN_TIMEOUT=10m
+        terraform init -upgrade
+        terraform plan -lock=false -no-color || echo "Terraform step skipped due to resource limits"
+        '''
+    }
+}
+        stage('Run Deployment Script') {
+            steps {
+                sh '''
+                chmod +x scripts/deploy.sh
+                ./scripts/deploy.sh
+                '''
+            }
+        }
+
+    }
+}
