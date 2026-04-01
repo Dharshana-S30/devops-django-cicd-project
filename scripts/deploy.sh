@@ -2,11 +2,15 @@
 
 ssh -o StrictHostKeyChecking=no ubuntu@13.233.98.185 << 'EOF'
 
-cd devops-django-cicd-project || git clone https://github.com/Dharshana-S30/devops-django-cicd-project.git
+if [ ! -d "devops-django-cicd-project" ]; then
+  git clone https://github.com/Dharshana-S30/devops-django-cicd-project.git
+fi
 
-cd devops-django-cicd-project/django-app/django-locallibrary-tutorial
+cd devops-django-cicd-project
 
 git pull origin main
+
+cd django-app/django-locallibrary-tutorial
 
 pip3 install -r requirements.txt
 
